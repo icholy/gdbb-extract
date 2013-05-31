@@ -1,3 +1,5 @@
 gdbb-extract
 test.txt
 *.swp
+out
+.breakpoints
