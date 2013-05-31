@@ -24,7 +24,7 @@ commands
 
 func init() {
 	var err error
-	r, err = regexp.Compile(`//break\s*(?:if\s*([^\:]*))?(?:\:(.*))?`)
+	r, err = regexp.Compile(`\/\/break\s*(?:if\s*([^\:]*))?(?:\:(.*))?`)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -92,7 +92,6 @@ func ParseFiles(fileNames []string) ([]*BreakPoint, error) {
 }
 
 func FormatBreakPoints(bps []*BreakPoint, w io.Writer) error {
-
 	funcMap := template.FuncMap{
 		"formatCondition": func(s string) string {
 			s = strings.Trim(s, " ")
@@ -102,7 +101,6 @@ func FormatBreakPoints(bps []*BreakPoint, w io.Writer) error {
 			return " if " + s
 		},
 	}
-
 	tmpl, err := template.New("breakpoints").Funcs(funcMap).Parse(BREAK_COMMENT_TEMPLATE)
 	if err != nil {
 		return err
