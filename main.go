@@ -2,20 +2,23 @@ package main
 
 import (
 	"bufio"
-	"fmt"
+	"io"
 	"log"
 	"os"
 	"regexp"
 	"strings"
+	"text/template"
 )
 
 var r *regexp.Regexp
 
 const BREAK_COMMENT_TEMPLATE = `
-break {{.FilePath}}:{{.LineNumber}} {{formatCondition .Condition}}
+{{range .}}
+break {{.FilePath}}:{{.LineNumber}}{{formatCondition .Condition}}
 commands
 {{range .Commands}}{{.}}
 {{end}}end
+{{end}}
 `
 
 func init() {
@@ -83,19 +86,37 @@ func ParseFiles(fileNames []string) ([]*BreakPoint, error) {
 	return res, nil
 }
 
-func main() {
+func FormatBreakPoints(bps []*BreakPoint, w io.Writer) error {
 
-	lines := []string{
-		"//break",
-		"//break if x > 1",
-		"//break : print x",
-		"//break if y == 2 : info locals; continue",
+	funcMap := template.FuncMap{
+		"formatCondition": func(s string) string {
+			s = strings.Trim(s, " ")
+			if len(s) == 0 {
+				return ""
+			}
+			return " if " + s
+		},
 	}
 
-	for _, line := range lines {
-		bp := ParseLine(line)
-		fmt.Println(line)
-		fmt.Printf("%#v\n", *bp)
+	tmpl, err := template.New("breakpoints").Funcs(funcMap).Parse(BREAK_COMMENT_TEMPLATE)
+	if err != nil {
+		return err
+	}
+	if err := tmpl.Execute(w, bps); err != nil {
+		return err
+	}
+	return nil
+}
+
+func main() {
+
+	bps, err := ParseFile("test.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := FormatBreakPoints(bps, os.Stdout); err != nil {
+		log.Fatal(err)
 	}
 
 }
