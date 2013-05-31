@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"text/template"
@@ -65,7 +66,11 @@ func ParseFile(fileName string) ([]*BreakPoint, error) {
 		if r.MatchString(line) {
 			bp := ParseLine(line)
 			bp.LineNumber = i
-			bp.FilePath = fileName
+			path, err := filepath.Abs(fileName)
+			if err != nil {
+				return nil, err
+			}
+			bp.FilePath = path
 			bps = append(bps, bp)
 		}
 	}
