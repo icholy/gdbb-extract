@@ -38,13 +38,13 @@ $ gdbb-extract *.go > .breakpoints
 $ gdb -x .breakpoints -ex run
 ```
 
-Condition breakpoints work too
+**Conditional** breakpoints work too
 
 ```
 //break if $len(x) > 5
 ```
 
-Commands can be placed after a `:` and are separated by `;`
+**Commands** can be placed after a `:` and are separated by `;`
 
 ```
 //break : print x; continue
