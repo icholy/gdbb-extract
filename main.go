@@ -115,7 +115,16 @@ func FormatBreakPoints(bps []*BreakPoint, w io.Writer) error {
 
 func main() {
 
-	bps, err := ParseFile("test.txt")
+	if len(os.Args) < 2 {
+		log.Fatal("no files passed")
+	}
+
+	paths, err := filepath.Glob(os.Args[1])
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	bps, err := ParseFiles(paths)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -123,5 +132,4 @@ func main() {
 	if err := FormatBreakPoints(bps, os.Stdout); err != nil {
 		log.Fatal(err)
 	}
-
 }
