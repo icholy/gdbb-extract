@@ -65,7 +65,7 @@ func ParseFile(fileName string) ([]*BreakPoint, error) {
 		line := scanner.Text()
 		if r.MatchString(line) {
 			bp := ParseLine(line)
-			bp.LineNumber = i
+			bp.LineNumber = i + 1
 			path, err := filepath.Abs(fileName)
 			if err != nil {
 				return nil, err

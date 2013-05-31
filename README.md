@@ -20,7 +20,7 @@ if you invoke `gdbb-extract` on this file, it will output the following
 ``` sh
 $ gdbb-extract *.go
 
-break /path/to/main.go:5
+break /path/to/main.go:6
 commands
 end
 ```
