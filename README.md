@@ -10,8 +10,7 @@ package main
 import "fmt"
 
 func main() {
-  //break
-  fmt.Println("Hello World")
+  fmt.Println("Hello World") //break
 }
 ```
 
