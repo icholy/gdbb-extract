@@ -21,8 +21,6 @@ if you invoke `gdbb-extract` on this file, it will output the following
 $ gdbb-extract *.go
 
 break /path/to/main.go:6
-commands
-end
 ```
 
 Here's how you would debug this example.
