@@ -38,7 +38,7 @@ type BreakPoint struct {
 
 func ParseLine(line string) *BreakPoint {
 	match := r.FindStringSubmatch(line)
-  var cmds []string
+  cmds := []string{}
 	if len(match[2]) > 0 {
 		for _, cmd := range strings.Split(match[2], ";") {
 			cmd := strings.Trim(cmd, " ")
