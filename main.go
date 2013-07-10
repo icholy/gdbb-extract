@@ -20,10 +20,6 @@ commands
 {{end}}end{{end}}
 {{end}}`
 
-
-//break : print "hello"
-//break
-
 func init() {
 	var err error
 	r, err = regexp.Compile(`\/\/break\s*(?:if\s*([^\:]*))?(?:\:(.*))?`)
