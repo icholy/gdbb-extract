@@ -13,14 +13,16 @@ import (
 
 var r *regexp.Regexp
 
-const BREAK_COMMENT_TEMPLATE = `
-{{range .}}
-break {{.FilePath}}:{{.LineNumber}}{{formatCondition .Condition}}
-{{if .Commands}}commands
+const BREAK_COMMENT_TEMPLATE = `{{range .}}
+break {{.FilePath}}:{{.LineNumber}}{{formatCondition .Condition}}{{if .Commands}}
+commands
 {{range .Commands}}{{.}}
 {{end}}end{{end}}
-{{end}}
-`
+{{end}}`
+
+
+//break : print "hello"
+//break
 
 func init() {
 	var err error
