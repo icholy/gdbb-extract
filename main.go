@@ -16,9 +16,9 @@ var r *regexp.Regexp
 const BREAK_COMMENT_TEMPLATE = `
 {{range .}}
 break {{.FilePath}}:{{.LineNumber}}{{formatCondition .Condition}}
-commands
+{{if .Commands}}commands
 {{range .Commands}}{{.}}
-{{end}}end
+{{end}}end{{end}}
 {{end}}
 `
 
@@ -38,6 +38,7 @@ type BreakPoint struct {
 
 func ParseLine(line string) *BreakPoint {
 	match := r.FindStringSubmatch(line)
+  //break
   cmds := []string{}
 	if len(match[2]) > 0 {
 		for _, cmd := range strings.Split(match[2], ";") {
