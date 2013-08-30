@@ -1,6 +1,6 @@
-# GDB Breakpoint Extract
+# Go: Inline GDB Breakpoints
 
-This tools searches your source files for specially formatted comments and converts them to gdb breakpoints.
+This tools searches your go source files for specially formatted comments and converts them to gdb breakpoints.
 
 **Example:**
 
