@@ -10,45 +10,22 @@ package main
 import "fmt"
 
 func main() {
-  fmt.Println("Hello World") //break
+  for i := 0; i < 10; i++ {
+    fmt.Println("Hello World") //break if i == 5
+  }
 }
 ```
 
-if you invoke `gdbb-extract` on this file, it will output the following
+**Usage:**
 
 ``` sh
-$ gdbb-extract *.go
+# debug application
+$ gdbb
 
-break /path/to/main.go:6
+# debug tests
+$ gdbbtest
 ```
 
-Here's how you would debug this example.
+**Demo:**
 
-``` sh
-// build with debug flags
-$ go build -gcflags "-N -l" -o out`
-
-// extract the breakpoints
-$ gdbb-extract *.go > .breakpoints
-
-// run gdb
-$ gdb -x .breakpoints -ex run
-```
-
-**Conditional** breakpoints work too
-
-```
-//break if $len(x) > 5
-```
-
-**Commands** can be placed after a `:` and are separated by `;`
-
-```
-//break : print x; continue
-```
-
-Combine them
-
-```
-//break if y < 2 : set y = 2; continue
-```
+![](http://i.imgur.com/GEEmHSs.gif)
