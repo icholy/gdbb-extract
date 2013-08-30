@@ -15,9 +15,8 @@ var r *regexp.Regexp
 
 const BREAK_COMMENT_TEMPLATE = `{{range .}}
 break {{.FilePath}}:{{.LineNumber}}{{formatCondition .Condition}}{{if .Commands}}
-commands
-{{range .Commands}}{{.}}
-{{end}}end{{end}}
+commands{{range .Commands}}
+{{.}}{{end}}end{{end}}
 {{end}}`
 
 func init() {
